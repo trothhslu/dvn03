@@ -3,3 +3,25 @@
     text-align: center}
 #d3-container > svg {background-color: greenyellow}
 */
+
+/* Color Theme Swatches in Hex */
+.Europe-1-hex { color: #021D40; }
+.Europe-2-hex { color: #0D518C; }
+.Europe-3-hex { color: #1F82BF; }
+.Europe-4-hex { color: #F2E205; }
+.Europe-5-hex { color: #F2CB05; }
+
+/* Color Theme Swatches in RGBA */
+.Europe-1-rgba { color: rgba(1, 28, 63, 1); }
+.Europe-2-rgba { color: rgba(12, 80, 140, 1); }
+.Europe-3-rgba { color: rgba(30, 129, 191, 1); }
+.Europe-4-rgba { color: rgba(242, 226, 4, 1); }
+.Europe-5-rgba { color: rgba(242, 202, 4, 1); }
+
+/* Color Theme Swatches in HSLA */
+.Europe-1-hsla { color: hsla(213, 94, 12, 1); }
+.Europe-2-hsla { color: hsla(208, 83, 29, 1); }
+.Europe-3-hsla { color: hsla(202, 72, 43, 1); }
+.Europe-4-hsla { color: hsla(56, 96, 48, 1); }
+.Europe-5-hsla { color: hsla(50, 96, 48, 1); }
+
