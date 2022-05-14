@@ -23,21 +23,46 @@ var heightBrush = 100 - margin.top - margin.bottom; //reset to 100
 ////////////////////// Color Legend ////////////////////////// 
 ////////////////////////////////////////////////////////////// 
 
-var marginLegend = {top: 15, right: 30, bottom: 10, left: 30}
+var marginLegend = {top: 15, right: 30, bottom: 10, left: 50}
 widthLegend = 350 - marginLegend.left - marginLegend.right
 heightLegend = 30;
 
+var contients = ["Afrika", "Amerika", "Asien", "Europa", "Ozeanien"]
+
 var colorScale = d3.scaleOrdinal()
-    .domain(["Afrika", "Amerika", "Asien", "Europa", "Ozeanien"])
+    .domain(contients)
     .range(["#021D40", "#0D518C", "#1F82BF", "#F2E205", "#F2CB05"]);
 
 //Create color legend SVG
-var colorLegend = d3.select(".colorLegend").append("svg")
-    .attr("width", widthLegend + marginLegend.left + marginLegend.right)
-    .attr("height", heightLegend + marginLegend.top + marginLegend.bottom)
-  .append("g")
-	.attr("class", "colorLegendWrapper")
-    .attr("transform", "translate(" + marginLegend.left + "," + marginLegend.top + ")");
+var colorLegend = d3.selectAll(".colorLegend")
+    .append("svg")
+        .attr("width", width + marginLegend.left + marginLegend.right)
+        .attr("height", heightLegend + marginLegend.top + marginLegend.bottom)
+    .append("g")
+        .attr("class", "colorLegendWrapper")
+        .attr("transform", "translate(" + marginLegend.left + "," + marginLegend.top + ")");
+
+//Add Legend symbols
+var legendSize = 20
+colorLegend.selectAll(".test")
+    .data(contients).enter()
+    .append("rect")
+        .attr("x", function(d,i) { return i*(legendSize+(width/6))})
+        .attr("y", 0)
+        .attr("width", legendSize)
+        .attr("height", legendSize)
+        .style("fill", function(d) { return colorScale(d)});
+
+//Add Legend text
+colorLegend.selectAll(".test")
+    .data(contients).enter()
+    .append("text")
+        .attr("x", function(d,i) { return 28 + i*(legendSize+(width/6))})
+        .attr("y", 15)
+        .style("fill", function(d) { return colorScale(d)})
+        .text(function(d) { return d})
+        .attr("text-anchor", "left")
+        .style("alignment-baseline", "middle");
 
 ////////////////////////////////////////////////////////////// 
 ///////////////////// Scales & Axes ////////////////////////// 
@@ -49,7 +74,7 @@ var yScale = d3.scaleLinear().domain([0,1]).range([height, -margin.top]);
 var yScaleBrush = d3.scaleLinear().domain([0,1]).range([heightBrush,-margin.top]);
 
 var xAxis = d3.axisBottom(xScale).tickFormat(d3.format("d"));
-var yAxis = d3.axisLeft(yScale).tickSize(0);
+var yAxis = d3.axisLeft(yScale).tickSize(5);
 
 ////////////////////////////////////////////////////////////// 
 /////////////// Other initializations //////////////////////// 
@@ -99,7 +124,7 @@ context.append("defs").append("clipPath")
     .attr("transform", "translate(0," + -margin.top + ")")
     .append("rect")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height + margin.top);
 
 //Append x axis to context chart
 context.append("g")
@@ -136,7 +161,7 @@ focus.append("defs").append("clipPath")
     .attr("transform", "translate(0," + -margin.top + ")")
     .append("rect")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height + margin.bottom);
 
 //Append areas
 var areaFocus= focus.selectAll(".pathContinent")
@@ -147,29 +172,24 @@ var areaFocus= focus.selectAll(".pathContinent")
         .attr("fill", function(d) { return colorScale(d.key)})
         .attr("clip-path", "url(#clip)");
 
+//Append y axis to focus chart	
+focus.append("g")
+    .attr("class", "y axis")
+    .attr("transform", "translate(-5,0)")
+    .call(yAxis)
+    .append("text")
+        .attr("class", "titles")
+        .attr("transform", "rotate(-90)")
+        .attr("x", -(height/2))
+        .attr("y", -35)
+        .attr("dy", ".71em")
+        .style("font-size", 14)
+        .style("text-anchor", "middle");
+        //.text("Position in Top 10");
 
-//Append x axis to focus chart
-// focus.append("g")
-//     .attr("class", "x axis")
-//     .style("font-size", 13)
-//     .attr("transform", "translate(0," + (height) + ")")
-//     .call(xAxis);
-
-// //Append y axis to focus chart	
-// focus.append("g")
-//     .attr("class", "y axis")
-//     .attr("transform", "translate(-10,0)")
-//     .call(yAxis)
-// .append("text")
-//     .attr("class", "titles")
-//     .attr("transform", "rotate(-90)")
-//     .attr("x", -(height/2))
-//     .attr("y", -35)
-//     .attr("dy", ".71em")
-//     .style("font-size", 14)
-//     .style("text-anchor", "middle")
-//     .text("Position in Top 10");
-
+//Make y axis line invisible (only ticks)
+focus.select(".domain")
+    .attr("stroke", "none");
 
 ////////////////////////////////////////////////////////////// 
 /////////////////////// Brushing ///////////////////////////// 

@@ -4,6 +4,11 @@
 #d3-container > svg {background-color: greenyellow}
 */
 
+.chartWrapper {
+	padding: 30px 0px;
+}
+
+
 /* Color Theme Swatches in Hex */
 .Europe-1-hex { color: #021D40; }
 .Europe-2-hex { color: #0D518C; }
