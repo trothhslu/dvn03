@@ -139,8 +139,9 @@ var areaContinents = context.selectAll(".pathContinent")
     .append("path")
         .attr("class", "pathContinent")
         .attr("d", areaBrush)
-        .attr("fill", function(d) { return colorScale(d.key)})
-        .attr("fill-opacity", 0.5)
+        .attr("fill", "white")
+        .attr("stroke", "black")
+        .style("stroke-width", 0.5)
         .attr("clip-path", "url(#clipContext)");
 
 ////////////////////////////////////////////////////////////// 
@@ -154,7 +155,15 @@ var focus = d3.select(".chart.focus")
         .attr("height", height + margin.top + margin.bottom)
     .append("g")
         .attr("class", "FocusWrapper")
-        .attr("transform", "translate(" + margin.left + "," + 20 + ")"); 
+        .attr("transform", "translate(" + margin.left + "," + 20 + ")");
+
+//Append border rect
+focus.append("rect")
+    .attr("id", "border")
+    .attr("transform", "translate(-7,-16)")
+    .attr("fill", "black")
+    .attr("width", width + 14)
+    .attr("height", height + 23);
 
 //Append clippath to focus chart
 focus.append("defs").append("clipPath")
@@ -190,7 +199,9 @@ var areaFocus= focus.selectAll(".pathContinent")
     .append("path")
         .attr("class", "pathContinent")
         .attr("d", area)
-        .attr("fill", function(d) { return colorScale(d.key)})
+        .attr("fill", "white")
+        .attr("stroke", "black")
+        .style("stroke-width", 4)
         .attr("clip-path", "url(#clip)");
 
 ////////////////////////////////////////////////////////////// 

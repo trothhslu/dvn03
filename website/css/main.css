@@ -8,6 +8,23 @@
 	padding: 30px 0px;
 }
 
+h1 {
+    padding-bottom: 20px;
+}
+
+p {
+    padding-bottom: 20px;
+}
+
+#buttonWrapper {
+    padding-bottom: 20px;
+}
+
+/* .btn.btn-default {
+    border-color: black;
+    padding-left: 20p;
+} */
+
 
 /* Color Theme Swatches in Hex */
 .Europe-1-hex { color: #021D40; }
